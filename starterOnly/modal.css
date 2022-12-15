@@ -202,7 +202,7 @@ input {
   border: 0.8px solid #ccc;
   outline: none;
 }
-.formData p {
+.errorMsg {
   color: #fe142f;
   font-size: 17px;
 }
@@ -338,6 +338,22 @@ input[data-error]::after {
   color: #fff;
   cursor: pointer;
   border: 0;
+}
+.hidden {
+  display: none;
+}
+.success-message {
+  max-width: 500px;
+  width: 100%;
+}
+.submitted {
+  font-size: 21px;
+  text-align: center;
+  padding: 10px;
+}
+.center {
+  display: flex !important;
+  align-items: center;
 }
 /* custom select styles */
 .custom-select {

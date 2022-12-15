@@ -24,65 +24,73 @@ function launchModal() {
 const closeBtn = document.querySelector(".close");
 
 function closeModal() {
+  modalbg.classList.remove("center");
   modalbg.style.display = "none";
 }
 closeBtn.addEventListener("click", closeModal);
 
-const checkValidationFormTos = function (inputTos) {
+// Check validation ToS
+function checkValidationFormTos(inputTos) {
   return inputTos.checked;
-};
+}
 
-const checkValidationFormBirthdate = function (inputBirthdate) {
+// Check validation birthdate
+function checkValidationFormBirthdate(inputBirthdate) {
   const birthdate = new Date(inputBirthdate.value);
   return birthdate < new Date();
-};
+}
 
-const checkValidationFormEmail = function (inputEmail) {
-  //Création des expressions régulières
+// Check validation email
+function checkValidationFormEmail(inputEmail) {
   let emailRegExp = new RegExp(
     "^[a-zA-Z0-9.-]+[@]{1}[a-zA-Z0-9.-]+[.]{1}[a-z]{2,10}$"
   );
   return emailRegExp.test(inputEmail.value);
-};
+}
 
-const checkValidationFormName = function (inputLastName) {
+// Check validation firstname and lastname
+function checkValidationFormName(inputName) {
   let charRegExp = new RegExp("^[a-zA-Z ,.'-]+$");
-  return charRegExp.test(inputLastName.value);
-};
+  return charRegExp.test(inputName.value);
+}
 
-const checkValidationFormLocations = function (locations) {
+// Check validation locations
+function checkValidationFormLocations(locations) {
   return locations.find((location) => location.checked);
-};
-// Submit form
-const validTos = function (inputTos) {
+}
+
+// error message ToS
+function validTos(inputTos) {
   let tosErrorMsg = document.querySelector("#tosErrorMsg");
   if (checkValidationFormTos(inputTos)) {
     tosErrorMsg.innerHTML = "";
   } else {
-    tosErrorMsg.innerHTML = "Vous devez accepter les conditions.";
+    tosErrorMsg.innerHTML =
+      "Vous devez vérifier que vous acceptez les termes et conditions.";
   }
-};
+}
 
-const validBirthdate = function (inputBirthdate) {
+// error message birthdate
+function validBirthdate(inputBirthdate) {
   const birthdateErrorMsg = document.querySelector("#birthdateErrorMsg");
 
   if (checkValidationFormBirthdate(inputBirthdate)) {
     birthdateErrorMsg.innerHTML = "";
   } else {
-    birthdateErrorMsg.innerHTML = "Tu peux pas etre née demain fdp.";
+    birthdateErrorMsg.innerHTML = "Vous devez entrer votre date de naissance.";
   }
-};
+}
 
-const validEmail = function (inputEmail) {
-  let emailErrorMsg = document.querySelector(".email-section").lastElementChild;
+// error message email
+function validEmail(inputEmail) {
+  let emailErrorMsg = document.querySelector("#emailErrorMsg");
   if (checkValidationFormEmail(inputEmail)) emailErrorMsg.innerHTML = "";
   else emailErrorMsg.innerHTML = "Veuillez renseigner votre email.";
-};
+}
 
-const validLastName = function (inputLastName) {
-  let lastNameErrorMsg =
-    document.querySelector(".lastName-section").lastElementChild;
-  let charRegExp = new RegExp("^[a-zA-Z ,.'-]+$");
+// error message lastname
+function validLastName(inputLastName) {
+  let lastNameErrorMsg = document.querySelector("#lastNameErrorMsg");
 
   if (checkValidationFormName(inputLastName)) {
     lastNameErrorMsg.innerHTML = "";
@@ -90,61 +98,61 @@ const validLastName = function (inputLastName) {
     lastNameErrorMsg.innerHTML =
       "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
   }
-};
+}
 
-const validFirstName = function (inputFirstName) {
-  let firstNameErrorMsg =
-    document.querySelector(".firstName-section").lastElementChild;
-
+// error message firstname
+function validFirstName(inputFirstName) {
+  let firstNameErrorMsg = document.querySelector("#firstNameErrorMsg");
   if (checkValidationFormName(inputFirstName)) {
     firstNameErrorMsg.innerHTML = "";
   } else {
     firstNameErrorMsg.innerHTML =
       "Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
   }
-};
+}
 
-const validLocations = function (locations) {
+// error message locations
+function validLocations(locations) {
   let locationsErrorMsg = document.querySelector("#locationsErrorMsg");
   if (checkValidationFormLocations(locations)) {
     locationsErrorMsg.innerHTML = "";
   } else {
     locationsErrorMsg.innerHTML = "Veuillez choisir une localisation.";
   }
-};
+}
 
-// Instruction du formulaire
+// form instructions
 function getForm() {
   let form = document.querySelector(".form");
 
-  // Validation du prénom
+  // Check validation firstname and lastname when changing
   form.firstName.addEventListener("change", function () {
     validFirstName(this);
   });
 
-  // Validation du nom de famille
+  // Check validation lastname and lastname when changing
   form.lastName.addEventListener("change", function () {
     validLastName(this);
   });
 
-  // Validation de l'adresse mail
+  // Check validation email when changing
   form.email.addEventListener("change", function () {
     validEmail(this);
   });
 
-  // Validation de l'adresse mail
+  // Check validation birthdate when changing
   form.birthdate.addEventListener("change", function () {
     validBirthdate(this);
   });
 
+  // Check validation ToS when changing
   form.tos.addEventListener("change", function () {
     validTos(this);
   });
 }
-
 getForm();
 
-const displayErrors = function () {
+function displayErrors() {
   let firstNameErrorMsg =
     document.querySelector(".firstName-section").lastElementChild;
   let charRegExp = new RegExp("^[a-zA-Z ,.'-]+$");
@@ -156,9 +164,9 @@ const displayErrors = function () {
       "Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
   }
   return charRegExp.test(inputFirstName.value);
-};
+}
 
-const checkValidationFormAll = function (
+function checkValidationFormAll(
   tos,
   locations,
   birthdate,
@@ -174,7 +182,8 @@ const checkValidationFormAll = function (
     checkValidationFormName(lastname) &&
     checkValidationFormName(firstname)
   );
-};
+}
+
 function submitForm() {
   const submitBtn = document.querySelector(".btn-submit");
 
@@ -187,7 +196,7 @@ function submitForm() {
     const firstname = document.querySelector("#firstName");
     let locations = document.querySelectorAll(".locations");
     locations = [...locations];
-    //display messages d'erreurs
+    //display error messages
     validTos(tos);
     validLocations(locations);
     validBirthdate(birthdate);
@@ -195,7 +204,7 @@ function submitForm() {
     validLastName(lastname);
     validFirstName(firstname);
 
-    //check form
+    //check entire form
     if (
       checkValidationFormAll(
         tos,
@@ -207,9 +216,15 @@ function submitForm() {
       )
     ) {
       const success = document.querySelector(".success-message");
-      const form = document.querySelector(".form");
       success.removeAttribute("hidden");
-      form.setAttribute("hidden", true);
+      const formData = document.querySelectorAll(".formData");
+      formData.forEach((data, index) => {
+        data.classList.add("hidden");
+      });
+      const btn = document.querySelector(".btn-submit");
+      btn.value = "Fermer";
+      btn.addEventListener("click", closeModal);
+      modalbg.classList.add("center");
     }
   });
 }
