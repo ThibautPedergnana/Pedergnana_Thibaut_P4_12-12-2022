@@ -121,6 +121,16 @@ function validLocations(locations) {
   }
 }
 
+// // error message quantity
+// function validQuantity(inputQuantity) {
+//   let quantityErrorMsg = document.querySelector("#quantityErrorMsg");
+//   if (checkValidationFormQuantity(inputQuantity)) {
+//     quantityErrorMsg.innerHTML = "";
+//   } else {
+//     quantityErrorMsg.innerHTML = "Veuillez indiquer votre nombre de tournois.";
+//   }
+// }
+
 // form instructions
 function getForm() {
   let form = document.querySelector(".form");
@@ -149,22 +159,27 @@ function getForm() {
   form.tos.addEventListener("change", function () {
     validTos(this);
   });
+
+  // Check validation quantity when changing
+  form.quantity.addEventListener("change", function () {
+    validQuantity(this);
+  });
 }
 getForm();
 
-function displayErrors() {
-  let firstNameErrorMsg =
-    document.querySelector(".firstName-section").lastElementChild;
-  let charRegExp = new RegExp("^[a-zA-Z ,.'-]+$");
+// function displayErrors() {
+//   let firstNameErrorMsg =
+//     document.querySelector(".firstName-section").lastElementChild;
+//   let charRegExp = new RegExp("^[a-zA-Z ,.'-]+$");
 
-  if (charRegExp.test(inputFirstName.value)) {
-    firstNameErrorMsg.innerHTML = "";
-  } else {
-    firstNameErrorMsg.innerHTML =
-      "Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
-  }
-  return charRegExp.test(inputFirstName.value);
-}
+//   if (charRegExp.test(inputFirstName.value)) {
+//     firstNameErrorMsg.innerHTML = "";
+//   } else {
+//     firstNameErrorMsg.innerHTML =
+//       "Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
+//   }
+//   return charRegExp.test(inputFirstName.value);
+// }
 
 function checkValidationFormAll(
   tos,
@@ -173,6 +188,7 @@ function checkValidationFormAll(
   email,
   lastname,
   firstname
+  // quantity
 ) {
   return (
     checkValidationFormTos(tos) &&
@@ -181,6 +197,7 @@ function checkValidationFormAll(
     checkValidationFormEmail(email) &&
     checkValidationFormName(lastname) &&
     checkValidationFormName(firstname)
+    // checkValidationFormQuantity(quantity)
   );
 }
 
@@ -194,17 +211,19 @@ function submitForm() {
     const email = document.querySelector("#email");
     const lastname = document.querySelector("#lastName");
     const firstname = document.querySelector("#firstName");
+    let quantity = document.querySelectorAll("#quantity");
     let locations = document.querySelectorAll(".locations");
     locations = [...locations];
-    //display error messages
+    // Display error messages
     validTos(tos);
     validLocations(locations);
     validBirthdate(birthdate);
     validEmail(email);
     validLastName(lastname);
     validFirstName(firstname);
+    // validQuantity(quantity);
 
-    //check entire form
+    // Check entire form then submit if valid
     if (
       checkValidationFormAll(
         tos,
@@ -215,14 +234,18 @@ function submitForm() {
         firstname
       )
     ) {
+      // Show the success message
       const success = document.querySelector(".success-message");
       success.removeAttribute("hidden");
+      //  Hide the form but keep the modal
       const formData = document.querySelectorAll(".formData");
       formData.forEach((data, index) => {
         data.classList.add("hidden");
       });
+      // Change value of button
       const btn = document.querySelector(".btn-submit");
       btn.value = "Fermer";
+      // Button now close the modal
       btn.addEventListener("click", closeModal);
       modalbg.classList.add("center");
     }

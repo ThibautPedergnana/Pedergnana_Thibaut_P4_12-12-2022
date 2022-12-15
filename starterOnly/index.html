@@ -67,22 +67,22 @@
             <div class="formData lastName-section">
               <label for="lastName">Nom</label><br>
               <input class="text-control" type="text" id="lastName" name="lastName" minlength="2" required /><br>
-              <p id="lastNameErrorMsg"></p>
+              <p id="lastNameErrorMsg" class="errorMsg"></p>
             </div>
             <div class="formData email-section">
               <label for="email">E-mail</label><br>
               <input class="text-control" type="email" id="email" name="email" required /><br>
-              <p id="emailErrorMsg"></p>
+              <p id="emailErrorMsg" class="errorMsg"></p>
             </div>
             <div class="formData birthdate-section">
               <label for="birthdate">Date de naissance</label><br>
               <input class="text-control" type="date" id="birthdate" name="birthdate" required /><br>
-              <p id="birthdateErrorMsg"></p>
+              <p id="birthdateErrorMsg" class="errorMsg"></p>
             </div>
             <div class="formData quantity-section">
               <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
               <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99">
-              <p id="quantityErrorMsg"></p>
+              <p id="quantityErrorMsg" class="errorMsg"></p>
             </div>
             <div class="formData locations-section">
               <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
@@ -111,7 +111,7 @@
               <label class="checkbox-label" for="location6">
                 <span class="checkbox-icon"></span>
                 Portland</label>
-              <p id="locationsErrorMsg"></p>
+              <p id="locationsErrorMsg" class="errorMsg"></p>
 
             </div>
 
@@ -121,7 +121,7 @@
                 <span class="checkbox-icon"></span>
                 J'ai lu et accepté les conditions d'utilisation.
               </label>
-              <p id="tosErrorMsg"></p>
+              <p id="tosErrorMsg" class="errorMsg"></p>
 
               <input class="checkbox-input" type="checkbox" id="checkbox2" />
               <label class="checkbox2-label" for="checkbox2">
@@ -143,7 +143,6 @@
       Copyright 2014 - 2022, GameOn Inc.
     </p>
   </footer>
-  <script src="script.js"></script>
   <script src="modal.js"></script>
 </body>
 
