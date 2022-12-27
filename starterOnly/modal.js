@@ -31,7 +31,7 @@ closeBtn.addEventListener("click", closeModal);
 
 // Check validation firstname and lastname
 function checkValidationFormName(inputName) {
-  let charRegExp = new RegExp("^[a-zA-Z ,.'-]+$");
+  let charRegExp = new RegExp("^[a-zA-Z ,.'-]{2,}$");
   return charRegExp.test(inputName.value);
 }
 
@@ -163,14 +163,14 @@ function getForm() {
     validBirthdate(this);
   });
 
-  // Check validation ToS when changing
-  form.tos.addEventListener("change", function () {
-    validTos(this);
-  });
-
   // Check validation quantity when changing
   form.quantity.addEventListener("change", function () {
     validQuantity(this);
+  });
+
+  // Check validation ToS when changing
+  form.tos.addEventListener("change", function () {
+    validTos(this);
   });
 }
 getForm();
