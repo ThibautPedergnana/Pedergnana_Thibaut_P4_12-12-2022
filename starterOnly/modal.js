@@ -29,15 +29,10 @@ function closeModal() {
 }
 closeBtn.addEventListener("click", closeModal);
 
-// Check validation ToS
-function checkValidationFormTos(inputTos) {
-  return inputTos.checked;
-}
-
-// Check validation birthdate
-function checkValidationFormBirthdate(inputBirthdate) {
-  const birthdate = new Date(inputBirthdate.value);
-  return birthdate < new Date();
+// Check validation firstname and lastname
+function checkValidationFormName(inputName) {
+  let charRegExp = new RegExp("^[a-zA-Z ,.'-]+$");
+  return charRegExp.test(inputName.value);
 }
 
 // Check validation email
@@ -48,10 +43,16 @@ function checkValidationFormEmail(inputEmail) {
   return emailRegExp.test(inputEmail.value);
 }
 
-// Check validation firstname and lastname
-function checkValidationFormName(inputName) {
-  let charRegExp = new RegExp("^[a-zA-Z ,.'-]+$");
-  return charRegExp.test(inputName.value);
+// Check validation birthdate
+function checkValidationFormBirthdate(inputBirthdate) {
+  const birthdate = new Date(inputBirthdate.value);
+  return birthdate < new Date();
+}
+
+// Check validation turnament number
+function checkValidationFormQuantity(inputQuantity) {
+  let numberRegExp = new RegExp("^([0-9]|[1-9][0-9])$");
+  return numberRegExp.test(inputQuantity.value);
 }
 
 // Check validation locations
@@ -59,38 +60,25 @@ function checkValidationFormLocations(locations) {
   return locations.find((location) => location.checked);
 }
 
-// error message ToS
-function validTos(inputTos) {
-  let tosErrorMsg = document.querySelector("#tosErrorMsg");
-  if (checkValidationFormTos(inputTos)) {
-    tosErrorMsg.innerHTML = "";
-  } else {
-    tosErrorMsg.innerHTML =
-      "Vous devez vérifier que vous acceptez les termes et conditions.";
-  }
+// Check validation ToS
+function checkValidationFormTos(inputTos) {
+  return inputTos.checked;
 }
 
-// error message birthdate
-function validBirthdate(inputBirthdate) {
-  const birthdateErrorMsg = document.querySelector("#birthdateErrorMsg");
-
-  if (checkValidationFormBirthdate(inputBirthdate)) {
-    birthdateErrorMsg.innerHTML = "";
+// error message firstname
+function validFirstName(inputFirstName) {
+  const firstNameErrorMsg = document.querySelector("#firstNameErrorMsg");
+  if (checkValidationFormName(inputFirstName)) {
+    firstNameErrorMsg.innerHTML = "";
   } else {
-    birthdateErrorMsg.innerHTML = "Vous devez entrer votre date de naissance.";
+    firstNameErrorMsg.innerHTML =
+      "Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
   }
-}
-
-// error message email
-function validEmail(inputEmail) {
-  let emailErrorMsg = document.querySelector("#emailErrorMsg");
-  if (checkValidationFormEmail(inputEmail)) emailErrorMsg.innerHTML = "";
-  else emailErrorMsg.innerHTML = "Veuillez renseigner votre email.";
 }
 
 // error message lastname
 function validLastName(inputLastName) {
-  let lastNameErrorMsg = document.querySelector("#lastNameErrorMsg");
+  const lastNameErrorMsg = document.querySelector("#lastNameErrorMsg");
 
   if (checkValidationFormName(inputLastName)) {
     lastNameErrorMsg.innerHTML = "";
@@ -100,20 +88,39 @@ function validLastName(inputLastName) {
   }
 }
 
-// error message firstname
-function validFirstName(inputFirstName) {
-  let firstNameErrorMsg = document.querySelector("#firstNameErrorMsg");
-  if (checkValidationFormName(inputFirstName)) {
-    firstNameErrorMsg.innerHTML = "";
+// error message email
+function validEmail(inputEmail) {
+  const emailErrorMsg = document.querySelector("#emailErrorMsg");
+  if (checkValidationFormEmail(inputEmail)) {
+    emailErrorMsg.innerHTML = "";
   } else {
-    firstNameErrorMsg.innerHTML =
-      "Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
+    emailErrorMsg.innerHTML = "Veuillez renseigner votre email.";
+  }
+}
+
+// error message birthdate
+function validBirthdate(inputBirthdate) {
+  const birthdateErrorMsg = document.querySelector("#birthdateErrorMsg");
+  if (checkValidationFormBirthdate(inputBirthdate)) {
+    birthdateErrorMsg.innerHTML = "";
+  } else {
+    birthdateErrorMsg.innerHTML = "Vous devez entrer votre date de naissance.";
+  }
+}
+
+// error message quantity
+function validQuantity(inputQuantity) {
+  const quantityErrorMsg = document.querySelector("#quantityErrorMsg");
+  if (checkValidationFormQuantity(inputQuantity)) {
+    quantityErrorMsg.innerHTML = "";
+  } else {
+    quantityErrorMsg.innerHTML = "Veuillez entrer un nombre entre 0 et 99.";
   }
 }
 
 // error message locations
 function validLocations(locations) {
-  let locationsErrorMsg = document.querySelector("#locationsErrorMsg");
+  const locationsErrorMsg = document.querySelector("#locationsErrorMsg");
   if (checkValidationFormLocations(locations)) {
     locationsErrorMsg.innerHTML = "";
   } else {
@@ -121,15 +128,16 @@ function validLocations(locations) {
   }
 }
 
-// // error message quantity
-// function validQuantity(inputQuantity) {
-//   let quantityErrorMsg = document.querySelector("#quantityErrorMsg");
-//   if (checkValidationFormQuantity(inputQuantity)) {
-//     quantityErrorMsg.innerHTML = "";
-//   } else {
-//     quantityErrorMsg.innerHTML = "Veuillez indiquer votre nombre de tournois.";
-//   }
-// }
+// error message ToS
+function validTos(inputTos) {
+  const tosErrorMsg = document.querySelector("#tosErrorMsg");
+  if (checkValidationFormTos(inputTos)) {
+    tosErrorMsg.innerHTML = "";
+  } else {
+    tosErrorMsg.innerHTML =
+      "Vous devez vérifier que vous acceptez les termes et conditions.";
+  }
+}
 
 // form instructions
 function getForm() {
@@ -167,37 +175,23 @@ function getForm() {
 }
 getForm();
 
-// function displayErrors() {
-//   let firstNameErrorMsg =
-//     document.querySelector(".firstName-section").lastElementChild;
-//   let charRegExp = new RegExp("^[a-zA-Z ,.'-]+$");
-
-//   if (charRegExp.test(inputFirstName.value)) {
-//     firstNameErrorMsg.innerHTML = "";
-//   } else {
-//     firstNameErrorMsg.innerHTML =
-//       "Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
-//   }
-//   return charRegExp.test(inputFirstName.value);
-// }
-
 function checkValidationFormAll(
   tos,
   locations,
   birthdate,
   email,
   lastname,
-  firstname
-  // quantity
+  firstname,
+  quantity
 ) {
   return (
     checkValidationFormTos(tos) &&
+    checkValidationFormQuantity(quantity) &&
     checkValidationFormLocations(locations) &&
     checkValidationFormBirthdate(birthdate) &&
     checkValidationFormEmail(email) &&
     checkValidationFormName(lastname) &&
     checkValidationFormName(firstname)
-    // checkValidationFormQuantity(quantity)
   );
 }
 
@@ -205,15 +199,17 @@ function submitForm() {
   const submitBtn = document.querySelector(".btn-submit");
 
   submitBtn.addEventListener("click", (e) => {
+    // prevent page reload
     e.preventDefault();
     const tos = document.querySelector("#tos");
     const birthdate = document.querySelector("#birthdate");
     const email = document.querySelector("#email");
     const lastname = document.querySelector("#lastName");
     const firstname = document.querySelector("#firstName");
-    let quantity = document.querySelectorAll("#quantity");
+    let quantity = document.querySelector("#quantity");
     let locations = document.querySelectorAll(".locations");
     locations = [...locations];
+
     // Display error messages
     validTos(tos);
     validLocations(locations);
@@ -221,7 +217,7 @@ function submitForm() {
     validEmail(email);
     validLastName(lastname);
     validFirstName(firstname);
-    // validQuantity(quantity);
+    validQuantity(quantity);
 
     // Check entire form then submit if valid
     if (
@@ -231,7 +227,8 @@ function submitForm() {
         birthdate,
         email,
         lastname,
-        firstname
+        firstname,
+        quantity
       )
     ) {
       // Show the success message
